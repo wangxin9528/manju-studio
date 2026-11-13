@@ -19,10 +19,14 @@
 环境要求：macOS / Linux / Windows，Python 3.10+。**不需要安装 FFmpeg**（`imageio-ffmpeg` 会带一个可执行文件），也不需要 API Key。
 
 ```bash
-git clone https://github.com/<your-name>/manju-studio.git
+git clone https://github.com/wangxin9528/manju-studio.git
 cd manju-studio
 ./start.sh
 ```
+
+- GitHub：https://github.com/wangxin9528/manju-studio
+- 中文项目页：[漫剧生成.md](漫剧生成.md)
+- Release：https://github.com/wangxin9528/manju-studio/releases/tag/v0.1.0
 
 首次启动会创建 `.venv` 并安装依赖，然后打开：
 
@@ -393,11 +397,7 @@ A：复制整个 `data/projects/` 目录即可；项目 JSON 与素材在一起�
 - 安全策略：[SECURITY.md](SECURITY.md)
 - 代码许可证：[MIT](LICENSE)；第三方组件与模型权重分别遵循各自许可证
 
-仓库初始化后，推送到 GitHub：
-
-```bash
-git remote add origin git@github.com:<your-name>/manju-studio.git
-git push -u origin main --tags
-```
+公开仓库：[wangxin9528/manju-studio](https://github.com/wangxin9528/manju-studio)  
+Release：[v0.1.0](https://github.com/wangxin9528/manju-studio/releases/tag/v0.1.0)
 
 发布包可以用仓库里的 `dist/` 直接上传到 GitHub Releases；模型下载脚本让使用者自己拉取 AnythingV5 / IP-Adapter，不把 4.6GB 权重塞进 Git 历史。
