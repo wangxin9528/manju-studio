@@ -1,0 +1,11 @@
+{
+  "name": "manju-studio",
+  "version": "1.0.0",
+  "description": "使用本机漫构系统，从一句创意生成竖屏漫剧成片。",
+  "author": "MANJU STUDIO",
+  "homepage": "http://127.0.0.1:8787",
+  "entry": "SKILL.md",
+  "config": {
+    "base_url": "http://127.0.0.1:8787"
+  }
+}

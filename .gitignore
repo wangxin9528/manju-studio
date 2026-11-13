@@ -1,0 +1,29 @@
+# local runtimes / model weights
+.venv/
+.venv-test/
+.tools/
+__pycache__/
+*.pyc
+.DS_Store
+
+# local data and caches
+data/cache/
+data/config.json
+data/*.log
+data/*.pid
+data/server.log
+data/server.pid
+data/ollama.log
+data/ollama.pid
+data/comfyui.log
+data/comfyui.pid
+
+# generated intermediates for the bundled sample
+data/projects/*/ep*/voice/
+data/projects/*/ep*/mix.wav
+data/projects/*/ep*/timeline.json
+
+# release artifacts
+dist/
+*.zip
+!docs/**/*.zip

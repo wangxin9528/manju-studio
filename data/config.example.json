@@ -1,0 +1,34 @@
+{
+  "llm": {
+    "enabled": false,
+    "provider": "ollama",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "api_key": "",
+    "model": "qwen2.5:3b",
+    "timeout": 180
+  },
+  "tts": {
+    "engine": "edge",
+    "fallback_local": true,
+    "narrator_voice": "zh-CN-YunyangNeural",
+    "local_voice": "Tingting"
+  },
+  "art": {
+    "engine": "builtin",
+    "comfyui_url": "http://127.0.0.1:8188",
+    "checkpoint": "",
+    "preset": "PLUS (high strength)",
+    "steps": 24,
+    "cfg": 6.5,
+    "width": 512,
+    "height": 896,
+    "ipadapter_weight": 0.62,
+    "ipadapter_weight_type": "prompt is more important",
+    "timeout": 900,
+    "fallback": true
+  },
+  "video": {
+    "fps": 24,
+    "resolution": "720p"
+  }
+}

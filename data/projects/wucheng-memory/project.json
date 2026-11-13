@@ -1,0 +1,651 @@
+{
+  "id": "wucheng-memory",
+  "title": "雾城记忆",
+  "premise": "在记忆可以买卖的雾城，记忆修复师林雾接到一单诡异的生意——修复一段被抹去的记忆，而记忆里的主角，正是她自己。",
+  "genre": "都市悬疑",
+  "style": "neo_noir",
+  "style_name": "霓虹黑",
+  "aspect": "9:16",
+  "resolution": "720p",
+  "logline": "她靠修补别人的记忆为生，直到有一天，她在一段陌生记忆里看见了自己。",
+  "characters": [
+    {
+      "id": "linwu",
+      "name": "林雾",
+      "role": "主角 / 记忆修复师",
+      "age": "27",
+      "persona": "冷静、克制，靠修补别人的记忆谋生。三年前亲手删掉了自己的一段记忆。",
+      "appearance": "银灰短发，白色机能风衣，右耳一枚黑色记忆接口，眼神很静。",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "accent": "#63F2DE",
+      "color": "#DDE7E6"
+    },
+    {
+      "id": "shenyan",
+      "name": "沈砚",
+      "role": "委托人 / 旧日搭档",
+      "age": "30",
+      "persona": "寡言，像一把收在雨里的刀。他知道林雾忘记的全部。",
+      "appearance": "黑色长风衣，苍白瘦削，左眼下有一道很浅的旧伤，声音低哑。",
+      "voice": "zh-CN-YunjianNeural",
+      "accent": "#FF4D3D",
+      "color": "#1B1D24"
+    },
+    {
+      "id": "bainao",
+      "name": "白噪",
+      "role": "AI 助手",
+      "age": "--",
+      "persona": "住在林雾耳机里的修复系统。语气轻快，偶尔像人一样多嘴。",
+      "appearance": "没有实体，以白色声波纹与全息噪点出现。",
+      "voice": "zh-CN-YunxiNeural",
+      "accent": "#F5EFE4",
+      "color": "#F5EFE4"
+    }
+  ],
+  "episodes": [
+    {
+      "id": "ep01",
+      "index": 1,
+      "title": "第七码",
+      "summary": "林雾接下沈砚的委托，却发现芯片里被删除的记忆，属于她自己。",
+      "hook": "芯片倒计时只剩七秒，而沈砚叫出了她三年前的名字。",
+      "shots": [
+        {
+          "id": "s01",
+          "index": 1,
+          "scene": "rooftop",
+          "location": "雾城 · 天台",
+          "time": "23:47",
+          "shot_type": "wide",
+          "camera": "航拍缓推",
+          "characters": [
+            "linwu"
+          ],
+          "pose": "stand_back",
+          "focus": "city",
+          "narration": "雾城没有夜晚，只有还没卖掉的梦。",
+          "narration_speaker": "林雾",
+          "dialogues": [],
+          "sfx": [
+            "rain",
+            "city"
+          ],
+          "caption": "雾城 · 雨夜",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s02",
+          "index": 2,
+          "scene": "rooftop",
+          "location": "雾城 · 天台边缘",
+          "time": "23:49",
+          "shot_type": "medium",
+          "camera": "横移",
+          "characters": [
+            "linwu",
+            "shenyan"
+          ],
+          "pose": "stand_back",
+          "focus": "shenyan",
+          "narration": "",
+          "narration_speaker": "旁白",
+          "dialogues": [
+            {
+              "speaker": "沈砚",
+              "text": "听说你能修补任何记忆。",
+              "emotion": "低沉"
+            },
+            {
+              "speaker": "林雾",
+              "text": "死人除外。",
+              "emotion": "冷淡"
+            }
+          ],
+          "sfx": [
+            "rain"
+          ],
+          "caption": "雨没有停过",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s03",
+          "index": 3,
+          "scene": "prop",
+          "location": "天台 · 雨中",
+          "time": "23:50",
+          "shot_type": "detail",
+          "camera": "微距",
+          "characters": [
+            "shenyan"
+          ],
+          "pose": "reach",
+          "focus": "chip",
+          "narration": "",
+          "narration_speaker": "旁白",
+          "dialogues": [
+            {
+              "speaker": "沈砚",
+              "text": "这段记忆，被它的主人亲手删了。",
+              "emotion": "低沉"
+            }
+          ],
+          "sfx": [
+            "rain",
+            "spark"
+          ],
+          "caption": "委托物 · 07 号记忆芯片",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s04",
+          "index": 4,
+          "scene": "lab",
+          "location": "林雾 · 记忆修复室",
+          "time": "00:12",
+          "shot_type": "medium",
+          "camera": "缓慢环绕",
+          "characters": [
+            "linwu"
+          ],
+          "pose": "sit",
+          "focus": "linwu",
+          "narration": "",
+          "narration_speaker": "旁白",
+          "dialogues": [
+            {
+              "speaker": "白噪",
+              "text": "记忆完整度百分之三，建议放弃。",
+              "emotion": "轻快"
+            },
+            {
+              "speaker": "林雾",
+              "text": "我从不放弃。",
+              "emotion": "冷静"
+            }
+          ],
+          "sfx": [
+            "hum",
+            "glitch"
+          ],
+          "caption": "修复进行中",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s05",
+          "index": 5,
+          "scene": "memory",
+          "location": "记忆 · 白色走廊",
+          "time": "三年前",
+          "shot_type": "wide",
+          "camera": "手持跟拍",
+          "characters": [
+            "girl"
+          ],
+          "pose": "run",
+          "focus": "corridor",
+          "narration": "不对。这段记忆里，有我的气味。",
+          "narration_speaker": "林雾",
+          "dialogues": [],
+          "sfx": [
+            "alarm",
+            "heartbeat"
+          ],
+          "caption": "异常记忆 · 03 年前",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s06",
+          "index": 6,
+          "scene": "lab",
+          "location": "记忆修复室",
+          "time": "00:13",
+          "shot_type": "close",
+          "camera": "急推",
+          "characters": [
+            "linwu"
+          ],
+          "pose": "closeup",
+          "focus": "linwu",
+          "narration": "",
+          "narration_speaker": "旁白",
+          "dialogues": [
+            {
+              "speaker": "白噪",
+              "text": "心率一百四十七。林雾，你在害怕。",
+              "emotion": "失真"
+            }
+          ],
+          "sfx": [
+            "glitch",
+            "heartbeat"
+          ],
+          "caption": "她认得这条走廊",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s07",
+          "index": 7,
+          "scene": "lab_door",
+          "location": "修复室 · 门口",
+          "time": "00:14",
+          "shot_type": "medium",
+          "camera": "固定 · 浅景深",
+          "characters": [
+            "shenyan"
+          ],
+          "pose": "stand",
+          "focus": "shenyan",
+          "narration": "",
+          "narration_speaker": "旁白",
+          "dialogues": [
+            {
+              "speaker": "沈砚",
+              "text": "现在，想起我了吗？",
+              "emotion": "低沉"
+            }
+          ],
+          "sfx": [
+            "hum"
+          ],
+          "caption": "阴影里的人",
+          "image": null,
+          "video": null,
+          "duration": null
+        },
+        {
+          "id": "s08",
+          "index": 8,
+          "scene": "chip",
+          "location": "07 号记忆芯片",
+          "time": "00:00:07",
+          "shot_type": "detail",
+          "camera": "微距推进",
+          "characters": [],
+          "pose": "static",
+          "focus": "chip",
+          "narration": "",
+          "narration_speaker": "旁白",
+          "dialogues": [
+            {
+              "speaker": "林雾",
+              "text": "你到底是谁？",
+              "emotion": "颤抖"
+            },
+            {
+              "speaker": "沈砚",
+              "text": "三年前，你也是这么问的。",
+              "emotion": "低沉"
+            }
+          ],
+          "sfx": [
+            "heartbeat",
+            "alarm"
+          ],
+          "caption": "倒计时 00:07",
+          "image": null,
+          "video": null,
+          "duration": null
+        }
+      ],
+      "status": "ready",
+      "video": "/media/wucheng-memory/ep01/final.mp4",
+      "srt": "/media/wucheng-memory/ep01/subtitles.srt",
+      "cover": "/media/wucheng-memory/ep01/cover.jpg",
+      "duration": 48.706,
+      "timeline": {
+        "duration": 48.706,
+        "speech_end": 46.106,
+        "outro": 2.6,
+        "shots": [
+          {
+            "index": 1,
+            "start": 0.35,
+            "end": 5.252,
+            "duration": 4.902,
+            "cues": [
+              {
+                "kind": "narration",
+                "speaker": "林雾",
+                "text": "雾城没有夜晚，只有还没卖掉的梦。",
+                "shot": 1,
+                "start": 0.65,
+                "end": 4.442,
+                "audio": "s01_n.wav",
+                "shot_start": 0.35,
+                "shot_end": 5.252,
+                "peak": 0.456
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "start": 5.252,
+            "end": 11.822,
+            "duration": 6.57,
+            "cues": [
+              {
+                "kind": "dialogue",
+                "speaker": "沈砚",
+                "text": "听说你能修补任何记忆。",
+                "shot": 2,
+                "start": 5.552,
+                "end": 8.96,
+                "audio": "s02_d1.wav",
+                "shot_start": 5.252,
+                "shot_end": 11.822,
+                "peak": 0.624
+              },
+              {
+                "kind": "dialogue",
+                "speaker": "林雾",
+                "text": "死人除外。",
+                "shot": 2,
+                "start": 9.18,
+                "end": 11.052,
+                "audio": "s02_d2.wav",
+                "shot_start": 5.252,
+                "shot_end": 11.822,
+                "peak": 0.592
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "start": 11.822,
+            "end": 17.332,
+            "duration": 5.51,
+            "cues": [
+              {
+                "kind": "dialogue",
+                "speaker": "沈砚",
+                "text": "这段记忆，被它的主人亲手删了。",
+                "shot": 3,
+                "start": 12.122,
+                "end": 16.562,
+                "audio": "s03_d1.wav",
+                "shot_start": 11.822,
+                "shot_end": 17.332,
+                "peak": 0.684
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "start": 17.332,
+            "end": 23.902,
+            "duration": 6.57,
+            "cues": [
+              {
+                "kind": "dialogue",
+                "speaker": "白噪",
+                "text": "记忆完整度百分之三，建议放弃。",
+                "shot": 4,
+                "start": 17.632,
+                "end": 21.04,
+                "audio": "s04_d1.wav",
+                "shot_start": 17.332,
+                "shot_end": 23.902,
+                "peak": 0.763
+              },
+              {
+                "kind": "dialogue",
+                "speaker": "林雾",
+                "text": "我从不放弃。",
+                "shot": 4,
+                "start": 21.26,
+                "end": 23.132,
+                "audio": "s04_d2.wav",
+                "shot_start": 17.332,
+                "shot_end": 23.902,
+                "peak": 0.497
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "start": 23.902,
+            "end": 29.284,
+            "duration": 5.382,
+            "cues": [
+              {
+                "kind": "narration",
+                "speaker": "林雾",
+                "text": "不对。这段记忆里，有我的气味。",
+                "shot": 5,
+                "start": 24.202,
+                "end": 28.474,
+                "audio": "s05_n.wav",
+                "shot_start": 23.902,
+                "shot_end": 29.284,
+                "peak": 0.56
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "start": 29.284,
+            "end": 35.106,
+            "duration": 5.822,
+            "cues": [
+              {
+                "kind": "dialogue",
+                "speaker": "白噪",
+                "text": "心率一百四十七。林雾，你在害怕。",
+                "shot": 6,
+                "start": 29.584,
+                "end": 34.336,
+                "audio": "s06_d1.wav",
+                "shot_start": 29.284,
+                "shot_end": 35.106,
+                "peak": 0.722
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "start": 35.106,
+            "end": 39.344,
+            "duration": 4.238,
+            "cues": [
+              {
+                "kind": "dialogue",
+                "speaker": "沈砚",
+                "text": "现在，想起我了吗？",
+                "shot": 7,
+                "start": 35.406,
+                "end": 38.574,
+                "audio": "s07_d1.wav",
+                "shot_start": 35.106,
+                "shot_end": 39.344,
+                "peak": 0.775
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "start": 39.344,
+            "end": 46.106,
+            "duration": 6.762,
+            "cues": [
+              {
+                "kind": "dialogue",
+                "speaker": "林雾",
+                "text": "你到底是谁？",
+                "shot": 8,
+                "start": 39.644,
+                "end": 41.516,
+                "audio": "s08_d1.wav",
+                "shot_start": 39.344,
+                "shot_end": 46.106,
+                "peak": 0.525
+              },
+              {
+                "kind": "dialogue",
+                "speaker": "沈砚",
+                "text": "三年前，你也是这么问的。",
+                "shot": 8,
+                "start": 41.736,
+                "end": 45.336,
+                "audio": "s08_d2.wav",
+                "shot_start": 39.344,
+                "shot_end": 46.106,
+                "peak": 0.776
+              }
+            ]
+          }
+        ],
+        "cues": [
+          {
+            "kind": "narration",
+            "speaker": "林雾",
+            "text": "雾城没有夜晚，只有还没卖掉的梦。",
+            "shot": 1,
+            "start": 0.65,
+            "end": 4.442,
+            "audio": "s01_n.wav",
+            "shot_start": 0.35,
+            "shot_end": 5.252,
+            "peak": 0.456
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "沈砚",
+            "text": "听说你能修补任何记忆。",
+            "shot": 2,
+            "start": 5.552,
+            "end": 8.96,
+            "audio": "s02_d1.wav",
+            "shot_start": 5.252,
+            "shot_end": 11.822,
+            "peak": 0.624
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "林雾",
+            "text": "死人除外。",
+            "shot": 2,
+            "start": 9.18,
+            "end": 11.052,
+            "audio": "s02_d2.wav",
+            "shot_start": 5.252,
+            "shot_end": 11.822,
+            "peak": 0.592
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "沈砚",
+            "text": "这段记忆，被它的主人亲手删了。",
+            "shot": 3,
+            "start": 12.122,
+            "end": 16.562,
+            "audio": "s03_d1.wav",
+            "shot_start": 11.822,
+            "shot_end": 17.332,
+            "peak": 0.684
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "白噪",
+            "text": "记忆完整度百分之三，建议放弃。",
+            "shot": 4,
+            "start": 17.632,
+            "end": 21.04,
+            "audio": "s04_d1.wav",
+            "shot_start": 17.332,
+            "shot_end": 23.902,
+            "peak": 0.763
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "林雾",
+            "text": "我从不放弃。",
+            "shot": 4,
+            "start": 21.26,
+            "end": 23.132,
+            "audio": "s04_d2.wav",
+            "shot_start": 17.332,
+            "shot_end": 23.902,
+            "peak": 0.497
+          },
+          {
+            "kind": "narration",
+            "speaker": "林雾",
+            "text": "不对。这段记忆里，有我的气味。",
+            "shot": 5,
+            "start": 24.202,
+            "end": 28.474,
+            "audio": "s05_n.wav",
+            "shot_start": 23.902,
+            "shot_end": 29.284,
+            "peak": 0.56
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "白噪",
+            "text": "心率一百四十七。林雾，你在害怕。",
+            "shot": 6,
+            "start": 29.584,
+            "end": 34.336,
+            "audio": "s06_d1.wav",
+            "shot_start": 29.284,
+            "shot_end": 35.106,
+            "peak": 0.722
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "沈砚",
+            "text": "现在，想起我了吗？",
+            "shot": 7,
+            "start": 35.406,
+            "end": 38.574,
+            "audio": "s07_d1.wav",
+            "shot_start": 35.106,
+            "shot_end": 39.344,
+            "peak": 0.775
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "林雾",
+            "text": "你到底是谁？",
+            "shot": 8,
+            "start": 39.644,
+            "end": 41.516,
+            "audio": "s08_d1.wav",
+            "shot_start": 39.344,
+            "shot_end": 46.106,
+            "peak": 0.525
+          },
+          {
+            "kind": "dialogue",
+            "speaker": "沈砚",
+            "text": "三年前，你也是这么问的。",
+            "shot": 8,
+            "start": 41.736,
+            "end": 45.336,
+            "audio": "s08_d2.wav",
+            "shot_start": 39.344,
+            "shot_end": 46.106,
+            "peak": 0.776
+          }
+        ]
+      }
+    }
+  ],
+  "cover": "/media/wucheng-memory/ep01/cover.jpg",
+  "sample": true,
+  "created_at": "2026-11-13T20:05:46+08:00",
+  "updated_at": "2026-11-13T20:06:29+08:00"
+}
