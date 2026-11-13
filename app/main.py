@@ -20,7 +20,7 @@ from .seed import now_iso
 
 ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "web"
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 app = FastAPI(title="漫构 MANJU STUDIO", version=VERSION)
 app.mount("/media", StaticFiles(directory=str(store.PROJECTS_DIR)), name="media")

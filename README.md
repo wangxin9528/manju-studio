@@ -26,7 +26,7 @@ cd manju-studio
 
 - GitHub：https://github.com/wangxin9528/manju-studio
 - 中文项目页：[漫剧生成.md](漫剧生成.md)
-- Release：https://github.com/wangxin9528/manju-studio/releases/tag/v0.1.0
+- Release：https://github.com/wangxin9528/manju-studio/releases/tag/v0.2.0
 
 首次启动会创建 `.venv` 并安装依赖，然后打开：
 
@@ -398,7 +398,7 @@ A：复制整个 `data/projects/` 目录即可；项目 JSON 与素材在一起�
 ## 10. 仓库、发布包与贡献
 
 - 版本：[VERSION](VERSION) · 变更记录：[CHANGELOG.md](CHANGELOG.md)
-- 发布包：`dist/manju-studio-0.1.0.zip` + `dist/SHA256SUMS`
+- 发布包：`dist/manju-studio-0.2.0.zip` + `dist/SHA256SUMS`
 - 发布包只包含代码、样片、文档和安装脚本；**不包含** `.tools/`、`.venv/`、模型权重、本机日志或配置
 - Git tag：`v0.1.0`
 - 开发与贡献：[CONTRIBUTING.md](CONTRIBUTING.md)
@@ -406,7 +406,7 @@ A：复制整个 `data/projects/` 目录即可；项目 JSON 与素材在一起�
 - 代码许可证：[MIT](LICENSE)；第三方组件与模型权重分别遵循各自许可证
 
 公开仓库：[wangxin9528/manju-studio](https://github.com/wangxin9528/manju-studio)  
-Release：[v0.1.0](https://github.com/wangxin9528/manju-studio/releases/tag/v0.1.0)
+Release：[v0.1.0](https://github.com/wangxin9528/manju-studio/releases/tag/v0.2.0)
 
 发布包可以用仓库里的 `dist/` 直接上传到 GitHub Releases；模型下载脚本让使用者自己拉取 AnythingV5 / IP-Adapter，不把 4.6GB 权重塞进 Git 历史。
 
