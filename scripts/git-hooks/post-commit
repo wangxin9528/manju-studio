@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Optional: after a commit on main, push it to origin automatically.
+# Install with: ./scripts/install_git_hooks.sh
+set -u
+root="$(git rev-parse --show-toplevel 2>/dev/null || exit 0)"
+cd "$root" || exit 0
+branch="$(git symbolic-ref --short HEAD 2>/dev/null || true)"
+[ "$branch" = "main" ] || exit 0
+if ! git remote get-url origin >/dev/null 2>&1; then
+  exit 0
+fi
+{
+  echo "--- $(date '+%Y-%m-%d %H:%M:%S') auto-push main ---"
+  git push origin main
+} >> "$root/.git/auto-push.log" 2>&1

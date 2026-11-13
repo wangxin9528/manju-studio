@@ -401,3 +401,15 @@ A：复制整个 `data/projects/` 目录即可；项目 JSON 与素材在一起�
 Release：[v0.1.0](https://github.com/wangxin9528/manju-studio/releases/tag/v0.1.0)
 
 发布包可以用仓库里的 `dist/` 直接上传到 GitHub Releases；模型下载脚本让使用者自己拉取 AnythingV5 / IP-Adapter，不把 4.6GB 权重塞进 Git 历史。
+
+### 自动同步到 GitHub（可选）
+
+如果希望本地每次提交后自动推送到 GitHub：
+
+```bash
+./scripts/install_git_hooks.sh
+```
+
+安装后，`main` 分支的每次提交都会在后台执行 `git push origin main`，日志在 `.git/auto-push.log`。这是本机 Git hook，不会强制其他贡献者使用。
+
+> 自动同步只更新代码分支，不会自动打新版本号或上传新 Release。需要发新版本时，改 `VERSION`、打 tag，再运行 `git push origin main --tags` 并上传新的 `dist/` 包。
