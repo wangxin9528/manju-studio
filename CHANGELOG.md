@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Added the 「童趣绘本」 picture-book visual style and 「儿童故事」 genre:
+  soft watercolor backgrounds, rounded characters, a bunny-eared friend,
+  child-friendly scenes and a dedicated 8-shot children's story template.
+
 ## v0.1.0 — 2026-11-13
 
 First public release.

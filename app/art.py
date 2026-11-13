@@ -69,6 +69,18 @@ PALETTES = {
         "warm": "#FFD4A3",
         "window": ["#FFE0A8", "#FF9A6A", "#B9D7D0"],
     },
+    "storybook": {
+        "name": "童趣绘本",
+        "sky": ["#FFF7EA", "#FFE7CF", "#CFE9E0", "#A8D8CF"],
+        "ink": "#4A3B35",
+        "paper": "#FFF9EF",
+        "accent": "#F28C70",
+        "accent2": "#6FB8AE",
+        "halo": "#FFD98E",
+        "fog": "#EAD8C8",
+        "warm": "#FFC978",
+        "window": ["#FFD98E", "#FF9F87", "#9FD9D0", "#FFF1C9"],
+    },
     "cyber_pop": {
         "name": "赛博波普",
         "sky": ["#07040F", "#1B0B3A", "#3A0F5E", "#801D6B"],
@@ -1040,8 +1052,311 @@ def _comic_marks(c: Canvas, shot, rng):
     c.img = add_grain(c.img, seed=shot.get("index", 1), amount=3.5)
 
 
+
+# ---------------------------------------------------------------------------
+# Storybook / children's picture-book engine
+
+
+def _sb_kind(shot: dict) -> str:
+    text = f"{shot.get('location', '')} {shot.get('scene', '')}"
+    if any(k in text for k in ("森林", "树", "林间")):
+        return "forest"
+    if any(k in text for k in ("院子", "花园", "草地", "田野")):
+        return "meadow"
+    if any(k in text for k in ("卧室", "家", "房间", "床")):
+        return "bedroom"
+    if any(k in text for k in ("幼儿园", "学校", "教室", "课堂")):
+        return "classroom"
+    if any(k in text for k in ("云", "天空", "星星", "梦")):
+        return "cloud"
+    if any(k in text for k in ("镇", "街", "店", "市场")):
+        return "town"
+    return "meadow"
+
+
+def _sb_cloud(c: Canvas, x, y, w, h, color, alpha=225):
+    d = c.draw
+    for dx, dy, rw, rh in [
+        (0.00, 0.22, 0.55, 0.55),
+        (0.28, 0.02, 0.58, 0.78),
+        (0.55, 0.16, 0.48, 0.58),
+        (0.20, 0.42, 0.55, 0.45),
+    ]:
+        d.ellipse(c.box(x + dx * w, y + dy * h, rw * w, rh * h), fill=(*color, alpha))
+
+
+def _sb_tree(c: Canvas, x, ground, h, rng):
+    p = c.p
+    trunk = _hex("#9B6A4B")
+    leaf = _hex("#84B98A")
+    d = c.draw
+    d.rounded_rectangle(c.box(x - h * 0.035, ground - h * 0.55, h * 0.07, h * 0.55), radius=h * 0.03, fill=trunk)
+    for cx, cy, r in [(-0.16, -0.66, 0.22), (0.12, -0.72, 0.26), (0.02, -0.52, 0.24)]:
+        d.ellipse(c.box(x + cx * h - r * h, ground + cy * h - r * h, r * h * 2, r * h * 2), fill=leaf)
+    for _ in range(5):
+        fx = x + rng.uniform(-0.25, 0.25) * h
+        fy = ground - rng.uniform(0.58, 0.92) * h
+        d.ellipse(c.box(fx, fy, 9, 9), fill=(*_hex(p["accent"]), 210))
+
+
+def _sb_house(c: Canvas, x, ground, w, h):
+    p = c.p
+    body = _hex("#F8D8A8")
+    roof = _hex("#E8896F")
+    d = c.draw
+    d.rectangle(c.box(x, ground - h * 0.62, w, h * 0.62), fill=body)
+    c.polygon([(x - w * 0.08, ground - h * 0.62), (x + w / 2, ground - h), (x + w * 1.08, ground - h * 0.62)], roof)
+    d.rectangle(c.box(x + w * 0.18, ground - h * 0.34, w * 0.22, h * 0.34), fill=_hex("#9B6A4B"))
+    for wx in (0.55, 0.78):
+        d.rectangle(c.box(x + w * wx, ground - h * 0.47, w * 0.14, h * 0.15), fill=(*_hex(p["window"][0]), 235))
+    d.rectangle(c.box(x + w * 0.54, ground - h * 0.3, w * 0.42, h * 0.04), fill=(*_hex(p["accent2"]), 120))
+    # chimney smoke
+    for i in range(3):
+        d.ellipse(c.box(x + w * 0.72 + i * 12, ground - h * 1.02 - i * 22, 24 + i * 6, 15), fill=(255, 255, 255, 130))
+
+
+def scene_storybook(c: Canvas, rng, kind: str):
+    p = c.p
+    paper = _hex(p["paper"])
+    ink = _hex(p["ink"])
+    c.img = vertical_gradient(c.w, c.h, p["sky"], [0, 0.38, 0.72, 1])
+    c.draw = ImageDraw.Draw(c.img, "RGBA")
+    # sun / moon
+    if kind == "cloud":
+        c.glow((780, 330), 280, _hex(p["halo"]), 0.55)
+        c.draw.ellipse(c.box(700, 250, 160, 160), fill=(*paper, 245))
+        for _ in range(24):
+            x, y = rng.uniform(100, 980), rng.uniform(180, 900)
+            c.draw.ellipse(c.box(x, y, rng.uniform(3, 7), rng.uniform(3, 7)), fill=(*_hex(p["warm"]), rng.randint(120, 240)))
+    else:
+        c.glow((800, 300), 320, _hex(p["halo"]), 0.45)
+        c.draw.ellipse(c.box(735, 235, 130, 130), fill=(255, 220, 145, 245))
+        for i in range(4):
+            _sb_cloud(c, rng.uniform(-80, 820), rng.uniform(300, 720), rng.uniform(260, 450), rng.uniform(80, 150), (255, 252, 244), rng.randint(120, 200))
+    # hills
+    c.draw.ellipse(c.box(-220, 1180, 1500, 900), fill=(*_hex("#B7D9B0"), 255))
+    c.draw.ellipse(c.box(480, 1260, 1000, 800), fill=(*_hex("#97C9A8"), 230))
+    c.draw.ellipse(c.box(-300, 1450, 1200, 680), fill=(*_hex("#D7E8B8"), 255))
+    # path
+    c.polygon([(440, 1920), (620, 1920), (570, 1480), (520, 1480)], (*_hex("#F4D9A9"), 215))
+
+    if kind == "forest":
+        for i, x in enumerate((120, 300, 820, 970)):
+            _sb_tree(c, x, 1600 + i * 20, rng.uniform(280, 360), rng)
+        for _ in range(8):
+            x, y = rng.uniform(60, 1000), rng.uniform(1650, 1820)
+            c.draw.ellipse(c.box(x, y, 20, 12), fill=(*_hex("#FFF0D2"), 230))
+            c.draw.rectangle(c.box(x + 7, y + 8, 7, 20), fill=(*_hex("#F6D9B0"), 230))
+        for _ in range(18):
+            x, y = rng.uniform(80, 1000), rng.uniform(700, 1500)
+            c.draw.ellipse(c.box(x, y, 5, 5), fill=(*_hex("#FFE9A0"), 200))
+    elif kind == "bedroom":
+        # cozy interior over the hills
+        c.draw.rectangle(c.box(0, 240, 1080, 1680), fill=(*_hex("#FBE8CE"), 255))
+        c.draw.rectangle(c.box(0, 1350, 1080, 570), fill=(*_hex("#D8B98F"), 255))
+        c.draw.rectangle(c.box(90, 360, 390, 470), fill=(*_hex("#AFD9D1"), 255))
+        c.draw.rectangle(c.box(90, 360, 390, 470), outline=(*_hex("#FFF8EA"), 255), width=max(2, int(8 * c.s)))
+        c.draw.ellipse(c.box(380, 410, 80, 80), fill=(*paper, 220))
+        for _ in range(18):
+            x, y = rng.uniform(120, 460), rng.uniform(390, 800)
+            c.draw.ellipse(c.box(x, y, 3, 3), fill=(*_hex(p["warm"]), 180))
+        # bed
+        c.draw.rounded_rectangle(c.box(470, 1050, 520, 220), radius=40 * c.s, fill=(*_hex("#FFF7E8"), 255))
+        c.draw.rounded_rectangle(c.box(470, 940, 520, 180), radius=38 * c.s, fill=(*_hex("#F8C7B8"), 255))
+        c.draw.rounded_rectangle(c.box(510, 850, 130, 110), radius=30 * c.s, fill=(*paper, 255))
+        c.draw.rounded_rectangle(c.box(470, 1150, 520, 200), radius=24 * c.s, fill=(*_hex("#C9E2D9"), 255))
+        c.draw.rectangle(c.box(470, 1250, 520, 70), fill=(*_hex("#B58A63"), 255))
+        # lamp
+        c.line([(920, 1060), (920, 1300)], (*_hex("#9B6A4B"), 255), 8)
+        c.draw.polygon(c.box(850, 990, 160, 100).__iter__() if False else [(850 * c.s, 1000 * c.s), (1010 * c.s, 1000 * c.s), (980 * c.s, 1100 * c.s), (880 * c.s, 1100 * c.s)], fill=(*_hex("#FFD58A"), 255))
+        c.glow((930, 1060), 260, _hex(p["warm"]), 0.4)
+    elif kind == "classroom":
+        c.draw.rectangle(c.box(0, 260, 1080, 1660), fill=(*_hex("#F7E8CC"), 255))
+        c.draw.rectangle(c.box(0, 1350, 1080, 570), fill=(*_hex("#C9A77E"), 255))
+        c.draw.rounded_rectangle(c.box(100, 430, 880, 420), radius=18 * c.s, fill=(*_hex("#7DAE9E"), 255))
+        c.draw.rounded_rectangle(c.box(100, 430, 880, 420), radius=18 * c.s, outline=(*_hex("#9B6A4B"), 255), width=max(2, int(6 * c.s)))
+        for i in range(4):
+            c.line([(180, 540 + i * 55), (500 + i * 80, 540 + i * 55)], (*_hex("#FFF6E2"), 190), 5)
+        # desks
+        for i, x in enumerate((150, 590)):
+            c.draw.rectangle(c.box(x, 1380, 340, 28), fill=(*_hex("#D5A977"), 255))
+            c.line([(x + 30, 1408), (x + 20, 1620)], (*_hex("#A87952"), 255), 12)
+            c.line([(x + 310, 1408), (x + 320, 1620)], (*_hex("#A87952"), 255), 12)
+    elif kind == "cloud":
+        for i in range(7):
+            _sb_cloud(c, rng.uniform(-100, 800), rng.uniform(850, 1500), rng.uniform(300, 560), rng.uniform(100, 180), (255, 253, 247), 210)
+        # rainbow
+        for i, color in enumerate(("#F6A48F", "#F7C978", "#A9D7B2", "#9CCFD8")):
+            c.draw.arc(c.box(230 - i * 18, 620 - i * 18, 620 + i * 36, 800 + i * 36), 200, 340, fill=(*_hex(color), 150), width=max(2, int(8 * c.s)))
+    elif kind == "town":
+        for x, w, h in ((80, 260, 300), (360, 220, 240), (680, 280, 330)):
+            _sb_house(c, x, 1510, w, h)
+        for x in (80, 900):
+            _sb_tree(c, x, 1640, 260, rng)
+        c.draw.rectangle(c.box(0, 1540, 1080, 380), fill=(*_hex("#EAD3AC"), 255))
+        for i in range(9):
+            c.draw.rounded_rectangle(c.box(40 + i * 125, 1700, 60, 18), radius=9 * c.s, fill=(*paper, 210))
+    else:
+        for i in range(12):
+            x, y = rng.uniform(30, 1050), rng.uniform(1580, 1880)
+            col = _hex(rng.choice(["#F5A68C", "#F8CA7B", "#A8D4B0", "#9FCED8", "#E9B7D0"]))
+            c.draw.ellipse(c.box(x, y, 14, 14), fill=(*col, 230))
+            c.draw.ellipse(c.box(x - 4, y + 14, 22, 8), fill=(*_hex("#87B58C"), 180))
+        for _ in range(7):
+            x, y = rng.uniform(100, 980), rng.uniform(600, 1300)
+            c.draw.ellipse(c.box(x, y, 16, 8), fill=(*_hex(p["accent"]), 160))
+            c.draw.ellipse(c.box(x + 12, y - 4, 12, 8), fill=(*_hex(p["accent2"]), 150))
+
+    # paper grain / wobbly frame
+    c.img = add_grain(c.img, seed=1, amount=2.0)
+    c.draw = ImageDraw.Draw(c.img, "RGBA")
+    frame = (*ink, 80)
+    c.draw.rounded_rectangle(c.box(24, 24, 1032, 1872), radius=28 * c.s, outline=frame, width=max(2, int(2 * c.s)))
+    for x, y in ((24, 24), (1056, 24), (24, 1896), (1056, 1896)):
+        c.draw.ellipse(c.box(x - 5, y - 5, 10, 10), fill=(*_hex(p["accent"]), 160))
+
+
+def _sb_character(c: Canvas, char, x, ground, h, facing=1, back=False, pose="stand"):
+    p = c.p
+    skin = _hex("#F4CFB4")
+    hair = _hex("#5D4238")
+    cloth = _mix(_hex(char.get("accent", p["accent"])), _hex(p["paper"]), 0.38)
+    cloth2 = _mix(_hex(char.get("accent2", p["accent2"])), _hex(p["paper"]), 0.35)
+    ink = _hex(p["ink"])
+    d = c.draw
+    # shadow
+    d.ellipse(c.box(x - h * 0.18, ground - h * 0.02, h * 0.36, h * 0.05), fill=(70, 60, 50, 40))
+    # legs
+    c.line([(x - h * 0.035, ground - h * 0.30), (x - h * 0.045, ground - 5)], fill=(*_hex("#6E5A4C"), 255), width=max(3, h * 0.035))
+    c.line([(x + h * 0.035, ground - h * 0.30), (x + h * 0.05, ground - 5)], fill=(*_hex("#6E5A4C"), 255), width=max(3, h * 0.035))
+    # body / dress
+    d.rounded_rectangle(c.box(x - h * 0.11, ground - h * 0.55, h * 0.22, h * 0.28), radius=h * 0.07, fill=(*cloth, 255))
+    c.polygon([(x - h * 0.12, ground - h * 0.30), (x + h * 0.12, ground - h * 0.30), (x + h * 0.17, ground - h * 0.16), (x - h * 0.17, ground - h * 0.16)], cloth2)
+    # arms
+    c.line([(x - h * 0.09, ground - h * 0.48), (x - h * 0.18, ground - h * 0.36)], fill=(*skin, 255), width=max(4, h * 0.035))
+    c.line([(x + h * 0.09, ground - h * 0.48), (x + h * 0.18, ground - h * 0.36)], fill=(*skin, 255), width=max(4, h * 0.035))
+    # head
+    hr = h * 0.115
+    hy = ground - h * 0.70
+    d.ellipse(c.box(x - hr, hy - hr, hr * 2, hr * 2), fill=(*skin, 255))
+    # bunny ears for the picture-book friend
+    if "兔" in str(char.get("name", "")) or "兔" in str(char.get("role", "")):
+        for ex, tilt in ((x - hr * 0.42, -0.2), (x + hr * 0.42, 0.2)):
+            d.ellipse(c.box(ex - hr * 0.22 + tilt * hr, hy - hr * 2.3, hr * 0.44, hr * 1.35), fill=(*_hex("#F7E6D2"), 255), outline=(*hair, 255), width=max(1, int(2 * c.s)))
+            d.ellipse(c.box(ex - hr * 0.10 + tilt * hr, hy - hr * 2.1, hr * 0.2, hr * 0.9), fill=(*_hex("#F3B6B0"), 210))
+    # hair cap
+    d.pieslice(c.box(x - hr * 1.08, hy - hr * 1.15, hr * 2.16, hr * 2.0), 180, 360, fill=(*hair, 255))
+    d.ellipse(c.box(x - hr * 1.08, hy - hr * 0.2, hr * 0.35, hr * 1.15), fill=(*hair, 255))
+    if not back:
+        # eyes + cheeks + smile
+        eye_y = hy + hr * 0.08
+        d.ellipse(c.box(x - hr * 0.42, eye_y, hr * 0.14, hr * 0.18), fill=(*ink, 255))
+        d.ellipse(c.box(x + hr * 0.28, eye_y, hr * 0.14, hr * 0.18), fill=(*ink, 255))
+        d.ellipse(c.box(x - hr * 0.52, eye_y + hr * 0.25, hr * 0.20, hr * 0.12), fill=(*_hex("#F09A87"), 160))
+        d.ellipse(c.box(x + hr * 0.32, eye_y + hr * 0.25, hr * 0.20, hr * 0.12), fill=(*_hex("#F09A87"), 160))
+        d.arc(c.box(x - hr * 0.22, hy + hr * 0.25, hr * 0.22, hr * 0.55), 20, 160, fill=(*ink, 220), width=max(2, int(2.4 * c.s)))
+    else:
+        d.ellipse(c.box(x - hr * 0.9, hy - hr * 0.8, hr * 1.8, hr * 1.6), fill=(*hair, 255))
+    # little collar
+    d.ellipse(c.box(x - h * 0.035, ground - h * 0.56, h * 0.07, h * 0.04), fill=(*_hex(p["paper"]), 230))
+
+
+def _sb_close(c: Canvas, char, rng):
+    p = c.p
+    skin = _hex("#F4CFB4")
+    skin_shadow = _hex("#E8B99C")
+    hair = _hex("#5D4238")
+    cloth = _mix(_hex(char.get("accent", p["accent"])), _hex(p["paper"]), 0.32)
+    ink = _hex(p["ink"])
+    d = c.draw
+    # soft torso / shoulders
+    d.rounded_rectangle(c.box(300, 1170, 480, 600), radius=150 * c.s, fill=(*cloth, 255))
+    c.polygon([(320, 1380), (760, 1380), (850, 1920), (230, 1920)], _mix(cloth, _hex(p["accent2"]), 0.28))
+    # neck
+    d.rounded_rectangle(c.box(470, 1000, 140, 200), radius=50 * c.s, fill=(*skin_shadow, 255))
+    # collar
+    d.ellipse(c.box(430, 1140, 220, 90), fill=(*_hex(p["paper"]), 235))
+    d.ellipse(c.box(505, 1155, 70, 55), fill=(*_hex(p["accent2"]), 210))
+    for by in (1310, 1370):
+        d.ellipse(c.box(520, by, 40, 40), fill=(*_hex(p["paper"]), 150))
+    # head
+    d.ellipse(c.box(330, 500, 420, 550), fill=(*skin, 255))
+    # hair back / cap
+    d.ellipse(c.box(300, 430, 480, 560), fill=(*hair, 255))
+    d.ellipse(c.box(340, 505, 400, 500), fill=(*skin, 255))
+    # fringe: three soft rounded locks
+    d.pieslice(c.box(315, 430, 450, 330), 180, 360, fill=(*hair, 255))
+    d.ellipse(c.box(330, 500, 130, 150), fill=(*hair, 255))
+    d.ellipse(c.box(460, 480, 150, 170), fill=(*hair, 255))
+    d.ellipse(c.box(610, 505, 120, 140), fill=(*hair, 255))
+    # side hair
+    d.rounded_rectangle(c.box(300, 600, 90, 400), radius=45 * c.s, fill=(*hair, 255))
+    d.rounded_rectangle(c.box(690, 600, 90, 400), radius=45 * c.s, fill=(*hair, 255))
+    # eyes
+    for ex in (440, 590):
+        d.ellipse(c.box(ex, 745, 48, 58), fill=(*ink, 255))
+        d.ellipse(c.box(ex + 8, 755, 14, 15), fill=(255, 255, 255, 235))
+        d.arc(c.box(ex - 8, 720, 72, 38), 200, 340, fill=(*ink, 170), width=max(2, int(3 * c.s)))
+    # cheeks
+    d.ellipse(c.box(365, 835, 80, 38), fill=(*_hex("#F29A86"), 125))
+    d.ellipse(c.box(640, 835, 80, 38), fill=(*_hex("#F29A86"), 125))
+    # nose / smile
+    d.arc(c.box(532, 810, 24, 18), 20, 160, fill=(*ink, 110), width=max(1, int(2 * c.s)))
+    d.arc(c.box(495, 855, 100, 70), 20, 160, fill=(*ink, 215), width=max(2, int(4 * c.s)))
+    # hair flower
+    fx, fy = 760, 610
+    for i in range(5):
+        import math
+        a = i / 5 * math.tau
+        d.ellipse(c.box(fx + math.cos(a) * 28 - 20, fy + math.sin(a) * 28 - 20, 40, 40), fill=(*_hex("#F6B4A2"), 220))
+    d.ellipse(c.box(fx - 11, fy - 11, 22, 22), fill=(*_hex(p["warm"]), 255))
+    # little collar
+    d.ellipse(c.box(455, 1220, 170, 80), fill=(*_hex(p["paper"]), 230))
+    # freckles / stars
+    for _ in range(14):
+        x, y = rng.uniform(380, 700), rng.uniform(690, 880)
+        d.ellipse(c.box(x, y, 4, 4), fill=(*_hex(p["warm"]), 190))
+
+
+def render_storybook_panel(project: dict, episode: dict, shot: dict, out_path: str | Path, width: int = 1080) -> str:
+    import hashlib
+    palette = PALETTES["storybook"]
+    seed = int(hashlib.sha1(f"{project.get('id')}-{episode.get('id')}-{shot.get('id')}".encode()).hexdigest()[:8], 16)
+    rng = random.Random(seed)
+    c = Canvas(width, palette)
+    scene_storybook(c, rng, _sb_kind(shot))
+    chars = [_find_character(project, name) for name in shot.get("characters", [])]
+    shot_type = shot.get("shot_type", "medium")
+    if shot_type == "close" and chars:
+        _sb_close(c, chars[0], rng)
+    elif shot_type == "detail":
+        # a picture-book object insert
+        paper = _hex(palette["paper"])
+        ink = _hex(palette["ink"])
+        c.draw.rounded_rectangle(c.box(160, 560, 760, 780), radius=36 * c.s, fill=(*paper, 255), outline=(*_hex(palette["accent"]), 220), width=max(2, int(4 * c.s)))
+        for i in range(6):
+            c.line([(220, 720 + i * 62), (850, 720 + i * 62)], (*_hex(palette["accent2"]), 80), 4)
+        c.draw.polygon([(540, 390), (790, 520), (540, 650), (290, 520)], fill=(*_hex(palette["warm"]), 240))
+        c.draw.polygon([(540, 390), (540, 650), (430, 590)], fill=(*_hex(palette["accent"]), 190))
+    elif chars:
+        h = 330 if shot_type == "wide" else 700
+        ground = 1770
+        xs = [430, 720] if len(chars) > 1 else [540]
+        for i, char in enumerate(chars[:2]):
+            _sb_character(c, char, xs[i] if i < len(xs) else 740, ground, h, facing=-1 if i == 0 else 1, back=(shot.get("pose") == "stand_back"), pose=shot.get("pose", "stand"))
+    c.img = add_grain(c.img, seed=shot.get("index", 1), amount=2.0)
+    c.draw = ImageDraw.Draw(c.img, "RGBA")
+    c.text((58, 58), str(shot.get("caption") or "MANJU PICTURE BOOK"), 18, (*_hex(palette["ink"]), 105), "light", "la")
+    c.text((1022, 1840), f"{shot.get('index', 1):02d}", 34, (*_hex(palette["ink"]), 80), "display", "ra")
+    out_path = Path(out_path); out_path.parent.mkdir(parents=True, exist_ok=True)
+    c.img.save(out_path, quality=94, subsampling=1)
+    return str(out_path)
+
+
 def render_panel(project: dict, episode: dict, shot: dict, out_path: str | Path, width: int = 1080) -> str:
     style = project.get("style", "neo_noir")
+    if style == "storybook":
+        return render_storybook_panel(project, episode, shot, out_path, width)
     palette = PALETTES.get(style, PALETTES["neo_noir"])
     import hashlib
     seed = int(hashlib.sha1(f"{project.get('id')}-{episode.get('id')}-{shot.get('id')}".encode()).hexdigest()[:8], 16)

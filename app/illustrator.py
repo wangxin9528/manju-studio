@@ -42,6 +42,11 @@ STYLE_PROMPTS = {
         "bold cyberpunk pop art anime illustration, saturated magenta and cyan, halftone texture, "
         "dynamic graphic composition, neon glow, high energy, vertical 9:16"
     ),
+    "storybook": (
+        "children's picture book illustration, soft watercolor and colored pencil texture, "
+        "warm pastel palette, gentle rounded shapes, whimsical storybook atmosphere, "
+        "friendly characters, soft daylight, no dark shadows, vertical 9:16"
+    ),
 }
 
 SCENE_PROMPTS = {

@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime, timezone
 
 
-STYLE_IDS = ["neo_noir", "dusk_anime", "ink_wuxia", "warm_slice", "cyber_pop"]
+STYLE_IDS = ["neo_noir", "dusk_anime", "ink_wuxia", "warm_slice", "cyber_pop", "storybook"]
 
 GENRES = {
     "都市悬疑": {
@@ -52,6 +52,17 @@ GENRES = {
             "有些再见，说出口就真的再也见不到了。",
             "我不是不爱你，我是来不及了。",
             "如果那天我回头，你会不会还在？",
+        ],
+    },
+    "儿童故事": {
+        "palette": "storybook",
+        "places": ["向日葵小镇", "云朵森林", "星星幼儿园", "外婆的院子"],
+        "props": ["一只会唱歌的纸飞机", "一盒彩色蜡笔", "一把小黄伞"],
+        "lines": [
+            "别怕，我陪你一起走。",
+            "你看，那朵云像一只大鲸鱼。",
+            "我们把今天画下来吧。",
+            "回家路上，星星会给我们带路。",
         ],
     },
     "青春校园": {
@@ -325,6 +336,95 @@ def _pick_name(premise: str, fallback: str = "顾言") -> str:
     return match.group(1) if match else fallback
 
 
+def compose_children_story(premise: str, genre: str, style: str, protagonist: str = "", title: str = "") -> dict:
+    """A gentle 8-shot picture-book episode with a child and a bunny friend."""
+    name = protagonist.strip() or "小满"
+    friend = "兔兔"
+    meta = GENRES["儿童故事"]
+    rng = random.Random(f"{premise}-{name}")
+    place = rng.choice(meta["places"])
+    prop = rng.choice(meta["props"])
+    title = title.strip() or "纸飞机回家"
+    logline = f"{name}在{place}捡到{prop}，决定和好朋友{friend}一起，把它送回星星的家。"
+    shots = [
+        _shot(
+            1, scene="establish", location=place, time="下午", shot_type="wide", camera="缓慢推进",
+            characters=[name], pose="stand", focus="forest", narration=f"{name}在{place}捡到了{prop}。",
+            narration_speaker=name, sfx=["wind"], caption=place,
+        ),
+        _shot(
+            2, scene="confront", location=place, time="下午", shot_type="medium", camera="固定",
+            characters=[name, friend], pose="stand", focus=name,
+            dialogues=[{"speaker": friend, "text": "它好像会唱歌！", "emotion": "轻快"}],
+            sfx=["spark"], caption="好朋友来了",
+        ),
+        _shot(
+            3, scene="detail", location=place, time="下午", shot_type="detail", camera="微距",
+            characters=[], pose="static", focus="prop",
+            dialogues=[{"speaker": name, "text": "嘘——听，它在唱回家的歌。", "emotion": "轻快"}],
+            sfx=["spark"], caption="会唱歌的小东西",
+        ),
+        _shot(
+            4, scene="forest", location="云朵森林", time="傍晚", shot_type="medium", camera="横移",
+            characters=[name, friend], pose="run", focus=name,
+            dialogues=[{"speaker": friend, "text": "前面有一条发光的小路！", "emotion": "轻快"}],
+            sfx=["wind"], caption="出发",
+        ),
+        _shot(
+            5, scene="memory", location="云朵森林", time="黄昏", shot_type="wide", camera="缓慢推进",
+            characters=[], pose="static", focus="sky",
+            narration="风把纸飞机托起来，云朵让开了一条路。", narration_speaker=name,
+            sfx=["wind"], caption="云朵让路",
+        ),
+        _shot(
+            6, scene="close", location="云朵森林", time="黄昏", shot_type="close", camera="急推",
+            characters=[name], pose="closeup", focus=name,
+            dialogues=[{"speaker": name, "text": "别怕，我们一起送你回家。", "emotion": "坚定"}],
+            sfx=["wind"], caption="小满的决定",
+        ),
+        _shot(
+            7, scene="confront", location="向日葵小镇", time="夜晚", shot_type="medium", camera="固定",
+            characters=[name, friend], pose="stand", focus=name,
+            dialogues=[{"speaker": friend, "text": "你看，星星的家到了。", "emotion": "轻快"}],
+            sfx=["wind"], caption="星星的家",
+        ),
+        _shot(
+            8, scene="detail", location="外婆的院子", time="夜晚", shot_type="detail", camera="微距",
+            characters=[], pose="static", focus="book",
+            narration="他们把今天的冒险画进图画书，留给明天。", narration_speaker=name,
+            sfx=["wind"], caption="图画书",
+        ),
+    ]
+    characters = [
+        {
+            "id": "child", "name": name, "role": "小冒险家", "age": "7",
+            "persona": "好奇、温柔，遇到需要帮助的小东西时，会勇敢地站出来。",
+            "appearance": "七岁的小女孩，黄色小雨衣，红色小书包，眼睛亮亮的。",
+            "appearance_en": "a cheerful seven-year-old Chinese girl, yellow raincoat, little red backpack, bright eyes, picture book style",
+            "voice": "zh-CN-XiaoxiaoNeural", "accent": "#F28C70", "color": "#E8896F",
+        },
+        {
+            "id": "bunny", "name": friend, "role": "好朋友", "age": "7",
+            "persona": "胆子不大，但总会陪着小满走完最后一步。",
+            "appearance": "一只奶油色的小兔子，蓝色背带裤，耳朵上别着一朵小黄花。",
+            "appearance_en": "a small cream-colored bunny child, blue overalls, tiny yellow flower on one ear, gentle smile, picture book style",
+            "voice": "zh-CN-YunxiNeural", "accent": "#F4C978", "color": "#D9B45E",
+        },
+    ]
+    episode = {
+        "id": f"ep{uuid.uuid4().hex[:6]}", "index": 1, "title": "纸飞机回家",
+        "summary": logline,
+        "hook": "图画书的最后一页，出现了一扇明天才会打开的小门。",
+        "shots": shots, "status": "draft", "video": None, "srt": None, "cover": None, "duration": None,
+    }
+    return {
+        "id": uuid.uuid4().hex[:10], "title": title, "premise": premise, "genre": genre,
+        "style": style, "aspect": "9:16", "resolution": "720p", "logline": logline,
+        "characters": characters, "episodes": [episode], "cover": None, "sample": False,
+        "created_at": now_iso(), "updated_at": now_iso(), "generation_engine": "builtin",
+    }
+
+
 def compose_story(
     premise: str,
     genre: str,
@@ -337,6 +437,8 @@ def compose_story(
     It is intentionally simple and fully offline. If an LLM is configured in
     settings, the API layer uses that instead of this function.
     """
+    if genre == "儿童故事":
+        return compose_children_story(premise, genre, style, protagonist, title)
     meta = GENRES.get(genre, GENRES["都市悬疑"])
     rng = random.Random(f"{premise}-{genre}-{style}")
     name = protagonist.strip() or _pick_name(premise)

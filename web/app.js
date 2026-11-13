@@ -11,8 +11,9 @@
     { id: "ink_wuxia", name: "水墨朱砂", tag: "INK WUXIA", note: "古风 / 刀光 / 宿命", colors: ["#C7352B", "#D9B56B", "#1C1A17"] },
     { id: "warm_slice", name: "暖调都市", tag: "WARM SLICE", note: "情感 / 生活 / 遗憾", colors: ["#E4553F", "#F4C26B", "#2C1C2B"] },
     { id: "cyber_pop", name: "赛博波普", tag: "CYBER POP", note: "高饱和 / 怪诞 / 未来", colors: ["#FF2E88", "#43F9FF", "#1B0B3A"] },
+    { id: "storybook", name: "童趣绘本", tag: "PICTURE BOOK", note: "童趣 / 水彩 / 温柔", colors: ["#F6A68C", "#F8D28B", "#A8D8CF"] },
   ];
-  const GENRES = ["都市悬疑", "热血玄幻", "古风仙侠", "都市情感", "青春校园"];
+  const GENRES = ["都市悬疑", "热血玄幻", "古风仙侠", "都市情感", "青春校园", "儿童故事"];
   const EMOTIONS = ["冷淡", "冷静", "低沉", "轻快", "失真", "颤抖", "动摇", "克制", "决绝", "逼近", "低语", "neutral"];
   const VOICES = [
     ["zh-CN-XiaoxiaoNeural", "晓晓 · 清冷少女"],

@@ -127,6 +127,7 @@ def _normalize_llm_project(raw: dict, premise: str, genre: str, style: str) -> d
         "ink_wuxia": "水墨朱砂",
         "warm_slice": "暖调都市",
         "cyber_pop": "赛博波普",
+        "storybook": "童趣绘本",
     }
     title = str(raw.get("title") or "未命名漫剧").strip()[:24]
     characters = []
@@ -361,6 +362,7 @@ def create_project(
         "ink_wuxia": "水墨朱砂",
         "warm_slice": "暖调都市",
         "cyber_pop": "赛博波普",
+        "storybook": "童趣绘本",
     }.get(style, "漫剧")
     if use_llm and cfg["llm"].get("enabled"):
         try:
